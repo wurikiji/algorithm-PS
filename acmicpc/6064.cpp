@@ -15,6 +15,11 @@ long long lcm(int a, int b) {
     return (long long)a * b / gcd(a, b);
 }
 
+void swap(int &a, int &b) {
+	int tmp = a;
+	a = b;
+	b = tmp;
+}
 int main(void){ 
     int t;
     scanf("%d", &t);
@@ -29,25 +34,29 @@ int main(void){
             w, z <= 40,000
             다 돌아도 됨. 
         */
-        int m_diff = (m - n);
-        int x_diff = (x - y);
-        long long mLcm = lcm(m, n); // 멸망의 날 
         
-        if (x_diff == 0) {
+        if (x == y) {
             printf("%d\n", x);
-        } else if (m_diff == 0) {
+        } else if (m == n) {
             printf("-1\n");
-        } else if (m_diff * x_diff > 0) {
-            // 둘다 음수 혹은 둘다 양수
-            if (m_diff < 0) {
-                m_diff = -m_diff;
-                x_diff = -x_diff;
-            }
-        } else if (m_diff < 0) {
-            
         } else {
-
-        }
+			long long mLcm = lcm(m, n); // 멸망의 날 
+			if (m > n){ 
+				swap (m, n);
+				swap (x, y);
+			}
+			long long mult = mLcm / m;
+			long long i;
+			for(i = 0 ;i <= mult;i++ ) {
+				if (((x + i * m) % n) == (y %n))
+					break;
+			}
+			if (i <= mult) {
+				printf("%lld\n", x + i * m);
+			} else {
+				printf("-1\n");
+			}
+		}
     }
     return 0;
 }

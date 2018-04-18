@@ -26,3 +26,9 @@
 *.exe
 *.out
 *.app
+
+test-icpc/
+*.log
+binary/
+data/
+result/
