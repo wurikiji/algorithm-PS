@@ -1,54 +1,80 @@
 #include <cstdio>
 #include <cstring>
 #include <stack>
+#include <string>
+#include <iostream>
 
 using namespace std;
 
-int main(void) {
-    char buf[32];
-    scanf("%s", buf);
-    int dap = 1;
-    int len = strlen(buf);
-    bool closed = false;
-    if (buf[0] == ')' || buf[0] == ']') {
-        printf("0\n");
-        return 0;
-    }
+int main(void){ 
+	string str;
+	cin >> str;
+	
+	int len = str.length();
+	
+	stack<char> st;
 
-    stack<char> op;
-    op.push(buf[0]);
-    for (int i = 1 ;i < len;i++) {
-        if (buf[i] == ')') {
-            if (op.top() != '(') {
-                printf("0\n");
-                return 0;
-            }
-            if (closed) {
-                
-            } else {
+	stack<int> dap;
+	if (len == 0 || len == 1) {
+		printf("0\n");
+		return 0;
+	}
+	for(int i = 0 ;i < len;i++) {
+		if (str[i] == '(') {
+			dap.push(0);
+			st.push(str[i]);
+		} else if (str[i] == '[') {
+			dap.push(0);
+			st.push(str[i]);
+		} else if (str[i] == ']') {
+			if (st.empty() || st.top() != '[') {
+				printf("0\n");
+				return 0;
+			}
+			int top = 0;
+			st.pop();
 
-            }
-            closed = true;
-        } else if (buf[i] == ']') {
-            if (op.top() != '[') {
-                printf("0\n");
-                return 0;
-            }
-            if (closed) {
-                
-            } else {
+			while(dap.top() != 0) {
+				top += dap.top();
+				dap.pop();
+			}
+			dap.pop();
 
-            }
-            closed = true;
-        } else {
-            op.push(buf[i]);
-            closed = false;
-        }
-    }
-    if (op.empty()) {
-        printf("%d\n", dap);
-    } else {
-        printf("0\n");
-    }
-    return 0;
+			if (top == 0) 
+				top = 1;
+
+			top *= 3;
+			dap.push(top);
+		} else if (str[i] == ')') {
+			if (st.empty() || st.top() != '(') {
+				printf("0\n");
+				return 0;
+			}
+			int top = 0;
+			st.pop();
+			while(dap.top() != 0) {
+				top += dap.top();
+				dap.pop();
+			}
+			dap.pop();
+			if (top == 0) 
+				top = 1;
+			top *= 2;
+			dap.push(top);
+		}
+	}
+
+	if (!st.empty()) {
+		printf("0\n");
+	} else {
+		int sum = 0;
+		while(!dap.empty()) {
+			sum += dap.top();
+			dap.pop();
+		}
+		printf("%d\n", sum);
+	}
+	
+	return 0;
 }
+
