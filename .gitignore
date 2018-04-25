@@ -27,14 +27,8 @@
 *.out
 *.app
 
-<<<<<<< HEAD
-data/
-binary/
-result
-=======
 test-icpc/
 *.log
 binary/
 data/
 result/
->>>>>>> d1937214b66ace13d3148cf7118cfb8bedc492b4
