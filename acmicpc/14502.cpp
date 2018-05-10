@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <cstdio>
 
 int main(void) { 
@@ -12,3 +13,9 @@ int main(void) {
     }
     return 0;
 }
+=======
+#include <cstdio>
+int main(void){ 
+	return 0;
+}
+>>>>>>> cc2c68474e269f21d71e9ff41ce05f3e6fc1edde

@@ -2,7 +2,6 @@
 #include <cmath>
 #include <cstring>
 
-
 long long dap[16][16]; 
 long long getCount(char *buf, int current, int depth) {
     int len = strlen(buf);
